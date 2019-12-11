@@ -9,7 +9,7 @@ create table Companies
 
 create table Regions
 (
-    Id                integer      not null auto_increment,
+    Id                integer      not null,
     ExistingGasAmount integer      not null,
     Name              varchar(100) not null,
     primary key (Id)
