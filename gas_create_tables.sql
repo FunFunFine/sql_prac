@@ -1,9 +1,8 @@
 create table Companies
 (
-    Id             integer     not null auto_increment,
+    Id             integer     not null auto_increment primary key ,
     Name           varchar(50) not null unique,
-    FoundationYear date        not null,
-    primary key (Id)
+    FoundationYear date        not null
 
 );
 
