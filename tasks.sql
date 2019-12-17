@@ -61,6 +61,24 @@ begin
 end;
 
 select Name, TowerEfficiency(Id) eff
-from GasTowers order by eff desc;
+from GasTowers
+order by eff desc;
+
+-- 5
+
+-- 6
+create trigger GasTowerInsertPrevention
+    before insert
+    on GasTowers
+    for each row
+begin
+    declare extractedGasAmount integer;
+    declare regionGasAmount integer;
+    select ExistingGasAmount into regionGasAmount from Regions where RegionId = new.RegionId limit 1;
+    select sum(GasTowers.GasProductionRate) into extractedGasAmount from GasTowers where new.RegionId = RegionId;
+    if regionGasAmount - extractedGasAmount < new.GasProductionRate then
+        signal sqlstate '45000';
+    end if;
+end;
 
 
